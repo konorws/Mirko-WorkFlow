@@ -1,0 +1,45 @@
+version: '2'
+services:
+  # mirko webserver
+  php-apache:
+    build:
+      context: ./docker/containers/php-apache
+    ports:
+      - 1045:80
+    volumes:
+      - ./:/var/www/html:z
+      - ./docker/configs/apache2/000-default.conf:/etc/apache2/sites-available/000-default.conf
+      - ./docker/configs/php/php.ini:/usr/local/etc/php/php.ini
+    links:
+      - 'mariadb'
+    networks:
+      app_net:
+        ipv4_address: 10.152.44.10
+
+  # Mirko database
+  mariadb:
+    image: mariadb:10.3
+    volumes:
+      - mariadb:/var/lib/mysql
+    environment:
+      TZ: "Europe/Rome"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+      MYSQL_ROOT_PASSWORD: "4632"
+      MYSQL_USER: 'mirko-corp'
+      MYSQL_PASSWORD: '4632'
+      MYSQL_DATABASE: 'dba'
+    networks:
+      app_net:
+        ipv4_address: 10.152.44.20
+volumes:
+  mariadb:
+
+# Network IP configuration
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.152.44.0/24
+          gateway: 10.152.44.1
