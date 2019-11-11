@@ -1,0 +1,52 @@
+{% extends "structure/anonym.html.twig" %}
+
+{% block head__title %}
+    {% trans %} Login {% endtrans %}
+{% endblock %}
+
+{% block body__class %} login {% endblock %}
+
+{% block body__content %}
+    <div>
+        <a class="hiddenanchor" id="signup"></a>
+        <a class="hiddenanchor" id="signin"></a>
+
+        <div class="login_wrapper">
+            <div class="animate form login_form">
+                <section class="login_content">
+                    {% if error != null %}
+                        <div class="alert alert-danger alert-dismissible " role="alert">
+                            {{ error }}
+                        </div>
+                    {% endif %}
+
+                    <form method="POST">
+                        <h1>{% trans %}Login Form {% endtrans %}</h1>
+                        <div>
+                            <input type="text"
+                                   name="username"
+                                   class="form-control"
+                                   value="{{ last_username }}"
+                                   placeholder="{% trans %}Username{% endtrans %}"
+                                   required=""
+                            />
+                        </div>
+                        <div>
+                            <input type="password" name="password" class="form-control" placeholder="{% trans %}Password{% endtrans %}" required=""/>
+                        </div>
+                        <div>
+                            <button class="btn btn-info submit">{% trans %}Log in{% endtrans %}</button>
+                            <a class="reset_pass" href="#">{% trans %}Lost your password?{% endtrans %}</a>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="separator">
+                            <div class="clearfix"></div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+{% endblock %}
