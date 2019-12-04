@@ -122,7 +122,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        $url = $this->router->generate("user.dashboard.view");
+        $url = $this->router->generate("dashboard.view");
 
         return new RedirectResponse($url);
     }

@@ -2,7 +2,6 @@
 
 namespace App\Controller\User\Dashboard;
 
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -15,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class DashboardController extends AbstractController
 {
     /**
-     * @Route("user/dashboard", name="user.dashboard.view")
+     * @Route("/", name="dashboard.view")
      */
     public function dashboardAction()
     {

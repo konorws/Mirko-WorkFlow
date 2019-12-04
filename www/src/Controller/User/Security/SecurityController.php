@@ -2,6 +2,7 @@
 
 namespace App\Controller\User\Security;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -37,5 +38,20 @@ class SecurityController extends AbstractController
      */
     public function checkLoginAction()
     {
+    }
+
+    /**
+     * @Route("/user/logout", name="user.security.logout")
+     *
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function logoutAction(Request $request)
+    {
+        $this->get('security.token_storage')->setToken(NULL);
+        $request->getSession()->invalidate();
+
+        return $this->redirect($this->generateUrl('user.security.login'));
     }
 }
