@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block head__title %}{% trans %}Welcome{% endtrans %}{% endblock %}
+        - {% trans %}Mirko WorkFlow{% endtrans %}</title>
+
+    <!-- Bootstrap -->
+    <link href="{{ asset('assets/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendors/nprogress/nprogress.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendors/iCheck/skins/flat/yellow.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css') }}"
+          rel="stylesheet">
+    <link href="{{ asset('assets/vendors/jqvmap/dist/jqvmap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendors/animate.css/animate.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendors/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="{{ asset('assets/build/css/custom.css') }}" rel="stylesheet">
+
+    {% block head__link %}{% endblock %}
+</head>
+
+<body class="nav-md {% block body__class %}{% endblock %}">
+
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            {{ render(controller('App\\Controller\\General\\MenuController::displayAction')) }}
+        </div>
+
+        <div class="top_nav">
+            {{ render(controller('App\\Controller\\General\\HeaderController::displayAction')) }}
+        </div>
+
+
+        <div class="right_col" role="main">
+            <div class="clearfix"></div>
+            <!-- Render flash messages -->
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success alert-dismissible " role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-danger alert-dismissible " role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+            <!-- End -->
+
+            {% block body__content %} {% endblock %}
+        </div>
+
+        <footer>
+            <div class="pull-right">
+                "Mirko WorkFlow" by <a href="https://mirko.in.ua/">Mirko</a> - 2019-2020 <br/>
+                Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+    </div>
+</div>
+
+<!-- footer scripts -->
+<script src="{{ asset('assets/vendors/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/vendors/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('assets/vendors/fastclick/lib/fastclick.js') }}"></script>
+<script src="{{ asset('assets/vendors/nprogress/nprogress.js') }}"></script>
+<script src="{{ asset('assets/vendors/Chart.js/dist/Chart.min.js') }}"></script>
+<script src="{{ asset('assets/vendors/jquery-sparkline/dist/jquery.sparkline.min.js') }}"></script>
+<script src="{{ asset('assets/vendors/Flot/jquery.flot.js') }}"></script>
+<script src="{{ asset('assets/vendors/Flot/jquery.flot.pie.js') }}"></script>
+<script src="{{ asset('assets/vendors/Flot/jquery.flot.time.js') }}"></script>
+<script src="{{ asset('assets/vendors/Flot/jquery.flot.stack.js') }}"></script>
+<script src="{{ asset('assets/vendors/Flot/jquery.flot.resize.js') }}"></script>
+<script src="{{ asset('assets/vendors/flot.orderbars/js/jquery.flot.orderBars.js') }}"></script>
+<script src="{{ asset('assets/vendors/flot-spline/js/jquery.flot.spline.min.js') }}"></script>
+<script src="{{ asset('assets/vendors/flot.curvedlines/curvedLines.js') }}"></script>
+<script src="{{ asset('assets/vendors/DateJS/build/date.js') }}"></script>
+<script src="{{ asset('assets/vendors/moment/min/moment.min.js') }}"></script>
+<script src="{{ asset('assets/vendors/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+<script src="{{ asset('assets/vendors/validator/validator.js') }}"></script>
+
+<script src="{{ asset('assets/build/js/custom.min.js') }}"></script>
+</body>
+</html>
+

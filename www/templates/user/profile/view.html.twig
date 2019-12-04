@@ -1,0 +1,58 @@
+{% extends "@App/structure/general.html.twig" %}
+
+{% block head__title %}
+    {{ user.getFullName }}
+{% endblock %}
+
+
+{% block body__content %}
+    <div class="page-title">
+        <div class="title_left">
+            <h3>{% trans %}User Profile{% endtrans %}</h3>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+                <div class="x_content">
+                    <div class="col-md-3 col-sm-3  profile_left">
+                        <div class="profile_img">
+                            <div id="crop-avatar">
+                                <!-- Current avatar -->
+                                <img src="{{ attachmentThumb(user.image) }}" alt="{{ user.fullName }}"
+                                     style="width: 220px; height: auto"
+                                     class="img-responsive avatar-view"
+                                />
+                            </div>
+                        </div>
+                        <h3>{{ user.fullName }}</h3>
+
+                        <ul class="list-unstyled user_data">
+                            <li>
+                                <i class="fa fa-briefcase user-profile-icon"></i>
+                                {{ user.company }}, {{ user.companyPosition }}
+                            </li>
+                            <li>
+                                <i class="fa fa-envelope user-profile-icon"></i>
+                                {{ user.email }}
+                            </li>
+                        </ul>
+
+                        {% if(myProfile) %}
+                            <a class="btn btn-primary" href="{{ url('user.profile.edit', {'user_id': app.user.id}) }}">
+                                <i class="fa fa-edit m-right-xs"></i>
+                                {% trans %}Edit Profile{% endtrans %}
+                            </a>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-9 col-sm-9 ">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

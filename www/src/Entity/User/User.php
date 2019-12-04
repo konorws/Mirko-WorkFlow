@@ -2,6 +2,7 @@
 
 namespace App\Entity\User;
 
+use App\Entity\Attachment\Attachment;
 use App\Service\KeyGeneratorService;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -16,6 +17,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+    CONST DEFAULT_IMAGE = 'assets/images/no_avatar.png';
+
     /**
      * @var int
      * @ORM\Id()
@@ -72,10 +75,20 @@ class User implements UserInterface
      */
     protected $company;
 
-    public function eraseCredentials()
-    {
-        // TODO: Implement eraseCredentials() method.
-    }
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    protected $companyPosition;
+
+    /**
+     * @var Attachment
+     * @ORM\OneToOne(targetEntity="App\Entity\Attachment\Attachment")
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
+     */
+    protected $image;
+
+    public function eraseCredentials(){}
 
     /**
      * @return int
@@ -243,4 +256,52 @@ class User implements UserInterface
         $this->salt = $salt;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->getFirstName() . " ". $this->getLastName();
+    }
+
+    /**
+     * @return string
+     */
+    public function getCompanyPosition(): string
+    {
+        return $this->companyPosition;
+    }
+
+    /**
+     * @param string $companyPosition
+     *
+     * @return User
+     */
+    public function setCompanyPosition(string $companyPosition): User
+    {
+        $this->companyPosition = $companyPosition;
+
+        return $this;
+    }
+
+    /**
+     * @return Attachment|Null
+     */
+    public function getImage(): ?Attachment
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param Attachment $image
+     * @return User
+     */
+    public function setImage(?Attachment $image): User
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
 }

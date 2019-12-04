@@ -1,0 +1,7 @@
+services:
+    _instanceof:
+        App\Service\User\ProfileService:
+            public: true
+        App\Service\Attachment\AttachmentService:
+            public: true
+            autowire: true

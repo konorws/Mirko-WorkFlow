@@ -19,8 +19,6 @@ class DashboardController extends AbstractController
      */
     public function dashboardAction()
     {
-        var_dump($this->getUser());
-
         return $this->render('user/dashboard/view.html.twig');
     }
 }
