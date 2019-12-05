@@ -5,3 +5,8 @@ services:
         App\Service\Attachment\AttachmentService:
             public: true
             autowire: true
+    # Add Entity Repository as Service
+    App\Repository\:
+        resource: '../../src/Repository'
+        tags:
+            - 'doctrine.repository_service'

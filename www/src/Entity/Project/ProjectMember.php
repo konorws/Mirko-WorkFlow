@@ -25,7 +25,7 @@ class ProjectMember
 
     /**
      * @var User
-     * @ORM\OneToOne(targetEntity="\App\Entity\User\User")
+     * @ORM\ManyToOne(targetEntity="\App\Entity\User\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;

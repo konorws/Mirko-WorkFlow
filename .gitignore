@@ -2,3 +2,5 @@
 .idea
 error.log
 /production
+
+www/public/user_upload
