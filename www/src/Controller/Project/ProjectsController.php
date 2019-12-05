@@ -35,12 +35,8 @@ class ProjectsController extends AbstractController
     {
         $projects = $this->projectRepository->getProjectByUser($this->getUser());
 
-        foreach ($projects as $project)
-        {
-            var_dump($project->getMyRole($this->getUser()));
-        }
-
         return $this->render('@App/user/project/list/view.html.twig', [
+            'projects' => $projects
         ]);
     }
 }

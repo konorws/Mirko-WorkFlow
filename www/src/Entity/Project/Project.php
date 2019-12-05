@@ -150,7 +150,7 @@ class Project
     /**
      * @return Attachment
      */
-    public function getImage(): Attachment
+    public function getImage(): ?Attachment
     {
         return $this->image;
     }
