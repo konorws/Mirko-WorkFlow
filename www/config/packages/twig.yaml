@@ -3,5 +3,7 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
 
+    form_theme: ['general\theme.form.html.twig']
+
     paths:
         '%kernel.project_dir%/templates': App

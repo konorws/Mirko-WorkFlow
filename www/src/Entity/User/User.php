@@ -88,6 +88,35 @@ class User implements UserInterface
      */
     protected $image;
 
+    /**
+     * @param string $username
+     * @param string $email
+     * @param array $roles
+     * @param string $firstName
+     * @param string $lastName
+     *
+     * @return User
+     */
+    public static function create(
+        string $username,
+        string $email,
+        array $roles,
+        string $firstName = 'FirstName',
+        string $lastName = 'LastName'
+    ) {
+        $user = new self();
+        $user->setUsername($username)
+            ->setEmail($email)
+            ->setFirstName($firstName)
+            ->setLastName($lastName)
+            ->setRoles($roles)
+            ->setImage(NULL)
+            ->setCompany("not set")
+            ->setCompanyPosition("not set");
+
+        return $user;
+    }
+
     public function eraseCredentials(){}
 
     /**

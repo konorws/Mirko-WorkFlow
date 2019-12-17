@@ -11,8 +11,4 @@ namespace App\ObjectValue;
  */
 interface ObjectValueInterface
 {
-    /**
-     * @return string
-     */
-    public static function getClass(): string;
 }

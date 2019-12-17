@@ -39,14 +39,6 @@ class ProjectMember extends AbstractObjectValue
     ];
 
     /**
-     * @return string
-     */
-    public static function getClass(): string
-    {
-        return __CLASS__;
-    }
-
-    /**
      * @param array $roles
      * @return false|int|string
      */

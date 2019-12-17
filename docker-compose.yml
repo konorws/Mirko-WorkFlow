@@ -1,11 +1,11 @@
-version: '2'
+version: '2.1'
 services:
   # mirko webserver
   php-apache:
     build:
       context: ./docker/containers/php-apache
     ports:
-      - 1045:80
+      - 80:80
     volumes:
       - ./:/var/www/html:z
       - ./docker/configs/apache2/000-default.conf:/etc/apache2/sites-available/000-default.conf
@@ -14,11 +14,13 @@ services:
       - 'mariadb'
     networks:
       app_net:
-        ipv4_address: 10.152.45.10
+        ipv4_address: 192.168.5.25
 
   # Mirko database
   mariadb:
     image: mariadb:10.3
+    ports:
+      - 3306:3306
     volumes:
       - mariadb:/var/lib/mysql
     environment:
@@ -30,16 +32,11 @@ services:
       MYSQL_DATABASE: 'dba'
     networks:
       app_net:
-        ipv4_address: 10.152.45.20
+        ipv4_address: 192.168.5.26
 volumes:
   mariadb:
 
-# Network IP configuration
 networks:
   app_net:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 10.152.45.0/24
-          gateway: 10.152.45.1
+    external:
+      name: my-net

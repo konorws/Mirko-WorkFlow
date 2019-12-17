@@ -1,10 +1,8 @@
 services:
-    _instanceof:
-        App\Service\User\ProfileService:
-            public: true
-        App\Service\Attachment\AttachmentService:
-            public: true
-            autowire: true
+    App\Service\:
+        resource: '../../src/Service'
+        public: true
+        autowire: true
     # Add Entity Repository as Service
     App\Repository\:
         resource: '../../src/Repository'
