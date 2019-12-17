@@ -82,8 +82,7 @@ class CreateCommand extends Command
 
         $role = $io->choice(
             "Select Role User",
-            RoleObjectValue::getAllValues(),
-            RoleObjectValue::USER
+            RoleObjectValue::getAllValues()
         );
 
         $username = $this->askWithValidation(
@@ -140,7 +139,7 @@ class CreateCommand extends Command
         $user = User::create(
             $username,
             $email,
-            [$role],
+            [RoleObjectValue::get($role)],
             $firstName,
             $lastName
         );

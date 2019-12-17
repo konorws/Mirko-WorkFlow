@@ -3,10 +3,10 @@
 namespace App\Repository\User;
 
 use App\Entity\User\User;
+use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
 
 /**
  * Class UserRepository
@@ -14,7 +14,7 @@ use Doctrine\ORM\ORMException;
  * @author Mykhailo YATSYHSYN <myyat@mirko.in.ua>
  * @copyright Mirko 2019 <https://mirko.in.ua>
  */
-class UserRepository extends  ServiceEntityRepository
+class UserRepository extends ServiceEntityRepository
 {
     /**
      * UserRepository constructor.

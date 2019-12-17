@@ -11,36 +11,31 @@ namespace App\ObjectValue;
  */
 abstract class AbstractObjectValue implements ObjectValueInterface
 {
+    /**
+     * @var \ReflectionClass
+     */
+    private static $reflectionClass;
 
     /**
-     * Check is value
-     *
-     * @param string $value
-     *
-     * @return bool
+     * @param string $key
+     * @return mixed
      */
-    public  function checkExist(string $value)
+    public static function get(string $key)
     {
+        self::init();
+        return self::$reflectionClass->getConstant($key);
     }
 
     /**
      * @return array
      */
-    public static  function getAllValues() {
-        return self::getConstants();
+    public static function getAllValues() {
+        self::init();
+        return self::$reflectionClass->getConstants();
     }
 
-    /**
-     * @return array
-     */
-    private static function getConstants()
+    private function init()
     {
-        try {
-            $objectValueReflection = new \ReflectionClass(get_called_class());
-        } catch (\ReflectionException $e) {
-            return NULL;
-        }
-
-        return $objectValueReflection->getConstants();
+        self::$reflectionClass = new \ReflectionClass(get_called_class());
     }
 }
