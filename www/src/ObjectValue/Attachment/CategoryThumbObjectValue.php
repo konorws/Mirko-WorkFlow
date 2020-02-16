@@ -12,8 +12,8 @@ use App\ObjectValue\AbstractObjectValue;
  */
 class CategoryThumbObjectValue extends AbstractObjectValue
 {
-    const DEFAULT = "default.png";
-    const USER__PROFILE = 'user.profile.png';
+    const DEFAULT = "/assets/images/no-image-icon.png";
+    const USER__PROFILE = '/assets/images/no-image-icon.png';
 
     /**
      * @param string $key
