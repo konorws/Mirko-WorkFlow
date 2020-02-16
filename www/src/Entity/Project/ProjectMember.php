@@ -3,6 +3,8 @@
 namespace App\Entity\Project;
 
 use App\Entity\User\User;
+use App\Exception\NotFoundException;
+use App\ObjectValue\Project\ProjectRole;
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
@@ -42,6 +44,24 @@ class ProjectMember
      * @ORM\Column(type="string", length=25, nullable=false)
      */
     protected $role;
+
+    /**
+     * @param Project $project
+     * @param User $user
+     * @param string $role
+     *
+     * @return ProjectMember
+     * @throws NotFoundException
+     */
+    public static function create(Project $project, User $user, string $role)
+    {
+        $member = new self();
+        $member->setUser($user)
+            ->setProject($project)
+            ->setRole($role);
+
+        return $member;
+    }
 
     /**
      * @return int
@@ -107,10 +127,17 @@ class ProjectMember
 
     /**
      * @param string $role
+     *
      * @return ProjectMember
+     *
+     * @throws NotFoundException
      */
     public function setRole(string $role): ProjectMember
     {
+        if(ProjectRole::hasExist($role)) {
+            throw new NotFoundException("Project role is not exist");
+        }
+
         $this->role = $role;
 
         return $this;

@@ -57,7 +57,7 @@
 {%- endblock form_group_class %}
 
 {% block checkbox_row -%}
-    <div{% with {attr: row_attr|merge({class: (row_attr.class|default('') ~ ' form-group' ~ (not valid ? ' has-error'))|trim})} %}{{ block('attributes') }}{% endwith %}>{#--#}
+    <div{% with {attr: row_attr|merge({class: (row_attr.class|default('') ~ 'item form-group' ~ (not valid ? ' has-error'))|trim})} %}{{ block('attributes') }}{% endwith %}>{#--#}
         <div class="{{ block('form_label_class') }}"></div>{#--#}
         <div class="{{ block('form_group_class') }}">
             {{- form_widget(form) -}}
@@ -65,3 +65,9 @@
         </div>{#--#}
     </div>
 {%- endblock checkbox_row %}
+
+
+{% block button_widget -%}
+    {%- set attr = attr|merge({class: (attr.class|default('btn-primary') ~ ' btn')|trim}) -%}
+    {{- parent() -}}
+{%- endblock button_widget %}

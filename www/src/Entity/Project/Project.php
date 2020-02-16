@@ -3,7 +3,8 @@
 namespace App\Entity\Project;
 
 use App\Entity\User\User;
-use App\ObjectValue\Project\ProjectMember as OVProjectValue;
+use App\ObjectValue\Project\ProjectRole;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping AS ORM;
 use App\Entity\Attachment\Attachment;
@@ -27,8 +28,8 @@ class Project
     protected $id;
 
     /**
-     * @var ProjectMember[]
-     * @ORM\OneToMany(targetEntity="\App\Entity\Project\ProjectMember", mappedBy="project")
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="\App\Entity\Project\ProjectMember", mappedBy="project", cascade={"persist", "remove"})
      */
     protected $members;
 
@@ -76,6 +77,14 @@ class Project
     protected $public = false;
 
     /**
+     * Project constructor.
+     */
+    public function __construct()
+    {
+        $this->members = new ArrayCollection();
+    }
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -102,10 +111,26 @@ class Project
     }
 
     /**
-     * @param ProjectMember[] $members
+     * @param ProjectMember $projectMember
+     */
+    public function addMember(ProjectMember $projectMember)
+    {
+        $this->members->add($projectMember);
+    }
+
+    /**
+     * @param ProjectMember $projectMember
+     */
+    public function removeMember(ProjectMember $projectMember)
+    {
+        $this->members->removeElement($projectMember);
+    }
+
+    /**
+     * @param Collection[] $members
      * @return Project
      */
-    public function setMembers(array $members): Project
+    public function setMembers($members): Project
     {
         $this->members = $members;
         return $this;
@@ -159,7 +184,7 @@ class Project
      * @param Attachment $image
      * @return Project
      */
-    public function setImage(Attachment $image): Project
+    public function setImage(?Attachment $image): Project
     {
         $this->image = $image;
         return $this;
@@ -246,7 +271,7 @@ class Project
     {
         $roles = $this->getUserRoles($user);
 
-        return OVProjectValue::getRolePriority($roles);
+        return ProjectRole::getRolePriority($roles);
     }
 
     /**

@@ -4,7 +4,7 @@ namespace App\Twig\Project;
 
 use Twig\TwigFunction;
 use Twig\Extension\AbstractExtension;
-use App\ObjectValue\Project\ProjectMember;
+use App\ObjectValue\Project\ProjectRole;
 
 /**
  * Class RoleClassExtension
@@ -31,6 +31,6 @@ class RoleClassExtension extends AbstractExtension
      */
     public function getClassForRole(string $role): ? string
     {
-        return ProjectMember::getCssClassForRole($role);
+        return ProjectRole::getCssClassForRole($role);
     }
 }

@@ -11,7 +11,7 @@ use App\ObjectValue\AbstractObjectValue;
  * @author Mykhailo YATSYHSYN <myyat@mirko.in.ua>
  * @copyright Mirko 2019 <https://mirko.in.ua>
  */
-class ProjectMember extends AbstractObjectValue
+class ProjectRole extends AbstractObjectValue
 {
     const ROLE_OWNER = 'owner';
     const ROLE_MANAGER = 'manager';
