@@ -27,6 +27,16 @@ abstract class AbstractObjectValue implements ObjectValueInterface
     }
 
     /**
+     * @param string $key
+     * @return bool
+     */
+    public static function hasExist(string $key)
+    {
+        self::init();
+        return self::$reflectionClass->hasConstant($key);
+    }
+
+    /**
      * @return array
      */
     public static function getAllValues() {

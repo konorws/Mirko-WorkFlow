@@ -47,7 +47,6 @@ class CreateType extends AbstractType
             ->add("rate", NumberType::class, [
                 'html5' => true,
                 'scale' => 2,
-                ''
             ])
             ->add("save", SubmitType::class);
     }
