@@ -52,6 +52,10 @@ class ProjectRole extends AbstractObjectValue
             }
         }
 
+        if(empty($priorities)) {
+            return false;
+        }
+
         $max = max($priorities);
 
         return array_search($max,self::PRIORITY);
@@ -68,5 +72,16 @@ class ProjectRole extends AbstractObjectValue
         }
 
         return NULL;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getPermissionEdit()
+    {
+        return [
+            self::ROLE_OWNER,
+            self::ROLE_MANAGER
+        ];
     }
 }

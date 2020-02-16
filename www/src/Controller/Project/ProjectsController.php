@@ -2,15 +2,16 @@
 
 namespace App\Controller\Project;
 
+use App\Controller\AbstractAppController;
 use App\Entity\Project\Project;
+use App\Exception\NotFoundException;
 use App\Form\Type\Project\CreateFormType;
+use App\Guard\Project\ProjectGuard;
 use App\ObjectValue\Project\ProjectRole;
 use App\Repository\Project\ProjectRepository;
 use App\Service\Project\SaveService;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * Class ProjectsController
@@ -18,7 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  * @author Mykhailo YATSYHSYN <myyat@mirko.in.ua>
  * @copyright Mirko 2019 <https://mirko.in.ua>
  */
-class ProjectsController extends AbstractController
+class ProjectsController extends AbstractAppController
 {
     /**
      * @var ProjectRepository
@@ -86,5 +87,44 @@ class ProjectsController extends AbstractController
         return $this->render("@App/user/project/form/create.html.twig", [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("project/{id}/edit", name="project.edit")
+     *
+     * @param int $id
+     * @param Request $request
+     *
+     * @throws NotFoundException
+     * @throws \App\Exception\PermissionDeniedException
+     */
+    public function editAction(int $id, Request $request)
+    {
+        /** @var Project $project */
+        $project = $this->projectRepository->find($id);
+        if($project === NULL) {
+            throw new NotFoundException("Project not found");
+        }
+
+        ProjectGuard::edit($project, $this->getUser());
+
+        $form = $this->createForm(CreateFormType::class, $project)
+            ->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $project = $this->saveService->editProject($project, $form->getData());
+            $objectManager = $this->container->get("doctrine")->getManager();
+
+            $objectManager->persist($project);
+            $objectManager->flush();
+
+            $this->addFlash("success", "Project success update");
+            return $this->redirect($this->generateUrl("project.list"));
+        }
+
+        return $this->render("@App/user/project/form/edit.html.twig", [
+            'form' => $form->createView()
+        ]);
+
     }
 }
