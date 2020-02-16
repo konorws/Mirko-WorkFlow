@@ -43,6 +43,9 @@ class ProjectRepository extends ServiceEntityRepository
         $query->leftJoin(ProjectMember::class, 'pm', Join::WITH,
             $query->expr()->eq("pm.project", 'p.id')
         )->where($query->expr()->eq("pm.user", ":user"))
+            ->orWhere(
+                $query->expr()->eq("p.public", Project::IS_PUBLIC)
+            )
         ->setParameter("user", $user);
 
         $this->buildFilter($query, $filters);

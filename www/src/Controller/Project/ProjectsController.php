@@ -95,6 +95,8 @@ class ProjectsController extends AbstractAppController
      * @param int $id
      * @param Request $request
      *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
      * @throws NotFoundException
      * @throws \App\Exception\PermissionDeniedException
      */

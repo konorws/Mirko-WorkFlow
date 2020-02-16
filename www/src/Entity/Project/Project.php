@@ -19,6 +19,9 @@ use App\Entity\Attachment\Attachment;
  */
 class Project
 {
+    const IS_PUBLIC = 1;
+    const IS_PRIVATE = 0;
+
     /**
      * @var int
      * @ORM\Id()
@@ -72,9 +75,9 @@ class Project
 
     /**
      * @var bool
-     * @ORM\Column(type="string", length=3, nullable=false)
+     * @ORM\Column(type="smallint", length=1, nullable=false)
      */
-    protected $public = false;
+    protected $public = self::IS_PRIVATE;
 
     /**
      * Project constructor.
