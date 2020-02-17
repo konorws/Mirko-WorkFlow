@@ -248,9 +248,9 @@ class Project
     }
 
     /**
-     * @return bool
+     * @return int
      */
-    public function isPublic(): bool
+    public function isPublic(): int
     {
         return $this->public;
     }

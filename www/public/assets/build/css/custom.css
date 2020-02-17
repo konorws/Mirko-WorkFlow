@@ -6052,3 +6052,7 @@ ul.notifications {
 }
 
 /** /Dropzone.js **/
+
+.content__menu li {
+    display: inline-block;
+}

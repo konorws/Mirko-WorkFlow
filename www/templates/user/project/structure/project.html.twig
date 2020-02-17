@@ -1,0 +1,13 @@
+{% extends '@App/structure/general.html.twig' %}
+
+{% block head__title %}
+    {{ project.name }} - project
+{% endblock %}
+
+{% block body__content %}
+    <div class="content__menu">
+        {{ render(controller('App\\Controller\\Project\\BlockController::menuAction', {'id': project.id})) }}
+    </div>
+
+    {% block project_content %}{% endblock %}
+{% endblock %}

@@ -2,14 +2,14 @@
 
 namespace App\Controller\Project;
 
-use App\Controller\AbstractAppController;
 use App\Entity\Project\Project;
 use App\Exception\NotFoundException;
-use App\Form\Type\Project\CreateFormType;
 use App\Guard\Project\ProjectGuard;
-use App\ObjectValue\Project\ProjectRole;
-use App\Repository\Project\ProjectRepository;
 use App\Service\Project\SaveService;
+use App\ObjectValue\Project\ProjectRole;
+use App\Controller\AbstractAppController;
+use App\Form\Type\Project\CreateFormType;
+use App\Repository\Project\ProjectRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -128,5 +128,26 @@ class ProjectsController extends AbstractAppController
             'form' => $form->createView()
         ]);
 
+    }
+
+    /**
+     * @Route("project/{id}", name="project.view")
+     *
+     * @param int $id
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function viewAction(int $id)
+    {
+        $project = $this->projectRepository->find($id);
+
+        if($project === NULL) {
+            throw new NotFoundException("Project not found");
+        }
+        ProjectGuard::view($project, $this->getUser());
+
+        return $this->render("@App/user/project/view/project.html.twig", [
+            "project" => $project
+        ]);
     }
 }

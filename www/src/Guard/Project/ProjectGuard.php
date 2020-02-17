@@ -28,4 +28,22 @@ class ProjectGuard
             throw new PermissionDeniedException("You not have permission for edit project");
         }
     }
+
+    /**
+     * @param Project $project
+     * @param User $user
+     *
+     * @throws PermissionDeniedException
+     */
+    public static function view(Project $project, User $user)
+    {
+        if($project->isPublic()) {
+            return;
+        }
+
+        $role = $project->getUserGeneralRole($user);
+        if(!in_array($role, ProjectRole::getAllValues())) {
+            throw new PermissionDeniedException("You not have permission for edit project");
+        }
+    }
 }

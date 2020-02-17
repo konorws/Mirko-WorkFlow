@@ -5,6 +5,7 @@ namespace App\Repository\Project;
 use App\Entity\Project\Project;
 use App\Entity\Project\ProjectMember;
 use App\Entity\User\User;
+use App\Exception\NotFoundException;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
@@ -29,6 +30,24 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param mixed $id
+     * @param null $lockMode
+     * @param null $lockVersion
+     *
+     * @return Project
+     */
+    public function find($id, $lockMode = null, $lockVersion = null)
+    {
+        $project = parent::find($id, $lockMode, $lockVersion);
+
+        if($project === NULL) {
+            throw new NotFoundException("Project not found");
+        }
+
+        return $project;
+    }
+
+    /**
      * @param User $user
      * @param array $filters
      *
@@ -36,8 +55,7 @@ class ProjectRepository extends ServiceEntityRepository
      */
     public function getProjectByUser(User $user, array $filters = [
         'closed' => false
-    ])
-    {
+    ]) {
         $query = $this->createQueryBuilder('p');
         $query->select('p');
         $query->leftJoin(ProjectMember::class, 'pm', Join::WITH,

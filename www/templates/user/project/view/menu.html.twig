@@ -1,0 +1,9 @@
+{% for menuItem in menu %}
+    <li>
+        <a class="btn btn-dark {% if menuItem.active %} active {% endif %}"
+           href="{{ menuItem.url }}"
+        >
+            {{ menuItem.text }}
+        </a>
+    </li>
+{% endfor %}
