@@ -3,8 +3,10 @@
 namespace App\Controller\Project;
 
 use App\Controller\AbstractAppController;
+use App\Exception\NotFoundException;
 use App\Repository\Project\ProjectRepository;
 use App\Service\Project\SaveService;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -34,6 +36,9 @@ class MemberController extends AbstractAppController
     /**
      * @Route("project/{project}/member", name="project.member.list")
      * @param int $project
+     * @return Response
+     *
+     * @throws NotFoundException
      */
     public function listAction(int $project)
     {
@@ -43,5 +48,13 @@ class MemberController extends AbstractAppController
             "members" => $project->getMembers(),
             "project" => $project
         ]);
+    }
+
+    /**
+     * @Route("project/{project}/member/add", name="project.member.add", methods={"POST"})
+     */
+    public function addAction(int $project)
+    {
+
     }
 }

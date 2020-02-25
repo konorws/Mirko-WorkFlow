@@ -14,7 +14,7 @@ services:
       - 'mariadb'
     networks:
       app_net:
-        ipv4_address: 192.168.5.25
+        ipv4_address: 10.153.1.10
 
   # Mirko database
   mariadb:
@@ -32,11 +32,15 @@ services:
       MYSQL_DATABASE: 'dba'
     networks:
       app_net:
-        ipv4_address: 192.168.5.26
+        ipv4_address: 10.153.1.20
 volumes:
   mariadb:
 
 networks:
   app_net:
-    external:
-      name: my-net
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.153.1.0/24
+          gateway: 10.153.1.1
