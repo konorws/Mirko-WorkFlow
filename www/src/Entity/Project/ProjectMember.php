@@ -134,7 +134,7 @@ class ProjectMember
      */
     public function setRole(string $role): ProjectMember
     {
-        if(ProjectRole::hasExist($role)) {
+        if(ProjectRole::hasKeyExist($role)) {
             throw new NotFoundException("Project role is not exist");
         }
 

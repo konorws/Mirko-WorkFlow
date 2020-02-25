@@ -23,14 +23,14 @@
                 <div class="x_panel">
                     <div class="x_content">
                         {% for member in members %}
-                        <table class="table table-dark" style="width: 300px; display: inline-table;">
-                            <thead>
-                            <tr>
-                                <th style="width: 100px">Member</th>
-                                <th style="text-align: right;"><a href="#" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i> </a></th>
-                            </tr>
-                            </thead>
-                            <tbody>
+                            <table class="table table-dark" style="width: 300px; display: inline-table;">
+                                <thead>
+                                <tr>
+                                    <th style="width: 100px">Member</th>
+                                    <th style="text-align: right;"><a href="#" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i> </a></th>
+                                </tr>
+                                </thead>
+                                <tbody>
                                 <tr>
                                     <td>
                                         <img src="{{ attachmentThumb(member.user.image) }}"
@@ -43,10 +43,56 @@
                                         <span class="badge badge-real badge-{{ projectRoleClass(member.role) }}">{{ member.role }}</span>
                                     </td>
                                 </tr>
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
                         {% endfor %}
 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_content">
+                        <form class="form-horizontal form-label-left form-horizontal form-label-left"
+                              action="{{ url('project.member.add', {"project": project.id}) }}"
+                              method="POST"
+                        >
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="user">
+                                    User
+                                </label>
+                                <div class="col-md-6 col-sm-6">
+                                    <select name="user" class="form-control" id="user">
+                                        {% for user in addMember.users %}
+                                            <option value="{{ user.id }}">{{ user.fullName }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="role">
+                                    Role
+                                </label>
+                                <div class="col-md-6 col-sm-6">
+                                    <select name="role" class="form-control" id="role">
+                                        {% for role in addMember.roles %}
+                                            <option value="{{ role }}">{{ role }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <div class="col-md-6 offset-md-3">
+                                    <button class="btn btn-danger">
+                                        <i class="fa fa-plus-circle"></i> Add to Project
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
                     </div>
                 </div>
             </div>

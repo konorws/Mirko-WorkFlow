@@ -37,7 +37,7 @@ class UndefinedThumb implements ThumbInterface
     {
         $imageName = CategoryThumbObjectValue::DEFAULT;
         if($attachment !== NULL
-            && CategoryThumbObjectValue::hasExist($attachment->getCategory())
+            && CategoryThumbObjectValue::hasKeyExist($attachment->getCategory())
         ) {
             $imageName = CategoryThumbObjectValue::get($attachment->getCategory());
         }

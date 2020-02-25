@@ -29,9 +29,9 @@ class CategoryThumbObjectValue extends AbstractObjectValue
      * @param string $key
      * @return bool
      */
-    public static function hasExist(string $key)
+    public static function hasKeyExist(string $key)
     {
         $key = str_replace(".", "__", $key);
-        return parent::hasExist($key);
+        return parent::hasKeyExist($key);
     }
 }
