@@ -41,7 +41,28 @@ abstract class AbstractObjectValue implements ObjectValueInterface
      */
     public static function getAllValues() {
         self::init();
-        return self::$reflectionClass->getConstants();
+        $constants = self::$reflectionClass->getConstants();
+
+        if(static::getKeyPrefix() === NULL) {
+            return  $constants;
+        }
+
+        foreach ($constants as $key => $constant) {
+            if(strpos($key, static::getKeyPrefix()) !== 0) {
+                unset($constants[$key]);
+            }
+        }
+
+        return  $constants;
+    }
+
+
+    /**
+     * @return string|null
+     */
+    public static function getKeyPrefix(): ?string
+    {
+        return NULL;
     }
 
     private function init()

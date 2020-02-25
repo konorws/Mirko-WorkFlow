@@ -84,4 +84,12 @@ class ProjectRole extends AbstractObjectValue
             self::ROLE_MANAGER
         ];
     }
+
+    /**
+     * @return string|null
+     */
+    public static function getKeyPrefix(): ?string
+    {
+        return "ROLE_";
+    }
 }

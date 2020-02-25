@@ -11,4 +11,6 @@ namespace App\ObjectValue;
  */
 interface ObjectValueInterface
 {
+
+    public static function getKeyPrefix(): ?string;
 }
